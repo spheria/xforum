@@ -23,7 +23,7 @@ export function login(email, password) {
             user: json.user
           });
           cookie.save('token', json.token, { expires: moment().add(1, 'hour').toDate() });
-          browserHistory.push('/account');
+          browserHistory.push('/account/profile');
         });
       } else {
         return response.json().then((json) => {
@@ -142,7 +142,7 @@ export function updateProfile(state, token) {
     dispatch({
       type: 'CLEAR_MESSAGES'
     });
-    return fetch('/account', {
+    return fetch('/account/profile', {
       method: 'put',
       headers: {
         'Content-Type': 'application/json',
@@ -180,7 +180,7 @@ export function changePassword(password, confirm, token) {
     dispatch({
       type: 'CLEAR_MESSAGES'
     });
-    return fetch('/account', {
+    return fetch('/account/profile', {
       method: 'put',
       headers: {
         'Content-Type': 'application/json',
@@ -215,7 +215,7 @@ export function deleteAccount(token) {
     dispatch({
       type: 'CLEAR_MESSAGES'
     });
-    return fetch('/account', {
+    return fetch('/account/profile', {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json',

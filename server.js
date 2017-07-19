@@ -98,10 +98,17 @@ if (app.get('env') === 'development') {
   app.use(require('webpack-hot-middleware')(compiler));
 }
 
-app.use(require('./routes.js')
+app.use(require('./routes.js'))
 
 // React server rendering
-app.use(function(req, res) {
+app.use(function(req, res, next) {
+  // if (!req.user) {
+  //   res.render('layouts/main', {
+  //     html: html,
+  //     initialState: store.getState()
+  //   });
+  // }
+  console.log("checking state");
   var initialState = {
     auth: { token: req.cookies.token, user: req.user },
     messages: {}

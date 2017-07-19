@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "My app description",
   "scripts": {
-    "build": "webpack --display-error-details",
-    "postinstall": "npm run build",
+    "build": "webpack --display-error-details --progress --colors --watch",
+    "repack": "npm run build",
     "start": "node server.js",
     "start:production": "pm2 start server.js -i 4",
     "test": "npm run test:client && npm run test:server",

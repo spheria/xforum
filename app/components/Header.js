@@ -20,7 +20,7 @@ class Header extends React.Component {
             <i className="caret"></i>
           </a>
           <ul className="dropdown-menu">
-            <li><Link to="/account">My Account</Link></li>
+            <li><Link to="/account/profile">My Account</Link></li>
             <li className="divider"></li>
             <li><a href="#" onClick={this.handleLogout.bind(this)}>Logout</a></li>
           </ul>
