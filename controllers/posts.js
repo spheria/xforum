@@ -25,14 +25,15 @@ var Posts = require('../models/Posts');
     }
 
     var user_id = req.user.id ;
-// {user_id:user_id}
-    Posts.where('user_id', user_id).fetch().then(function(posts) {
-      console.log(posts.toJSON());
-      if (false) {
-      // if (posts != []) {
-        return res.send({ msg: 'Your dont have any posts. Create one!' });
+    console.log("user_id",user_id);
+    Posts.where({user_id:user_id}).fetchAll().then(function(postsData) {
+      // console.log(postsData.toJSON());
+      if (posts != []) {
+        res.send({ msg: 'Your dont have any posts. Create one!' });
+        // return
       } else {
-        return res.send({ posts: posts , msg: 'You have '+ posts.length +' posts.'});
+        res.send({ posts: postsData , msg: 'You have '+ postsData.length +' posts.'});
+        // return
       }
     }).catch(function(err) {
       if (err.code === 'DB_ERROR') {

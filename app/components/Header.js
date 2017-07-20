@@ -21,6 +21,7 @@ class Header extends React.Component {
           </a>
           <ul className="dropdown-menu">
             <li><Link to="/account/profile">My Account</Link></li>
+            <li><Link to="/account/posts">My Posts</Link></li>
             <li className="divider"></li>
             <li><a href="#" onClick={this.handleLogout.bind(this)}>Logout</a></li>
           </ul>
