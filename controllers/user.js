@@ -11,7 +11,7 @@ exports.ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.redirect('/login');
+    res.status(301).redirect('/login');
   }
 };
 
@@ -20,7 +20,7 @@ exports.ensureAuthenticated = function(req, res, next) {
  */
 exports.loginGet = function(req, res) {
   if (req.user) {
-    return res.redirect('/');
+    return res.status(301).redirect('/');
   }
   res.render('account/login', {
     title: 'Log in'
@@ -40,16 +40,16 @@ exports.loginPost = function(req, res, next) {
 
   if (errors) {
     req.flash('error', errors);
-    return res.redirect('/login');
+    return res.status(301).redirect('/login');
   }
 
   passport.authenticate('local', function(err, user, info) {
     if (!user) {
       req.flash('error', info);
-      return res.redirect('/login')
+      return res.status(301).redirect('/login')
     }
     req.logIn(user, function(err) {
-      res.redirect('/');
+      res.status(301).redirect('/');
     });
   })(req, res, next);
 };
@@ -59,7 +59,7 @@ exports.loginPost = function(req, res, next) {
  */
 exports.logout = function(req, res) {
   req.logout();
-  res.redirect('/');
+  res.status(301).redirect('/');
 };
 
 /**
@@ -67,7 +67,7 @@ exports.logout = function(req, res) {
  */
 exports.signupGet = function(req, res) {
   if (req.user) {
-    return res.redirect('/');
+    return res.status(301).redirect('/');
   }
   res.render('account/signup', {
     title: 'Sign up'
@@ -88,7 +88,7 @@ exports.signupPost = function(req, res, next) {
 
   if (errors) {
     req.flash('error', errors);
-    return res.redirect('/signup');
+    return res.status(301).redirect('/signup');
   }
 
   new User({
@@ -98,13 +98,13 @@ exports.signupPost = function(req, res, next) {
   }).save()
     .then(function(user) {
         req.logIn(user, function(err) {
-          res.redirect('/');
+          res.status(301).redirect('/');
         });
     })
     .catch(function(err) {
       if (err.code === 'ER_DUP_ENTRY' || err.code === '23505') {
         req.flash('error', { msg: 'The email address you have entered is already associated with another account.' });
-        return res.redirect('/signup');
+        return res.status(301).redirect('/signup');
       }
     });
 };
@@ -112,7 +112,7 @@ exports.signupPost = function(req, res, next) {
 /**
  * GET /account
  */
-exports.accountGet = function(req, res) {
+exports.getAccount = function(req, res) {
   res.render('account/profile', {
     title: 'My Account'
   });
@@ -122,7 +122,7 @@ exports.accountGet = function(req, res) {
  * PUT /account
  * Update profile information OR change password.
  */
-exports.accountPut = function(req, res, next) {
+exports.putAccount = function(req, res, next) {
   if ('password' in req.body) {
     req.assert('password', 'Password must be at least 4 characters long').len(4);
     req.assert('confirm', 'Passwords must match').equals(req.body.password);
@@ -136,7 +136,7 @@ exports.accountPut = function(req, res, next) {
 
   if (errors) {
     req.flash('error', errors);
-    return res.redirect('/account');
+    return res.status(301).redirect('/account');
   }
 
   var user = new User({ id: req.user.id });
@@ -157,8 +157,9 @@ exports.accountPut = function(req, res, next) {
     } else {
       req.flash('success', { msg: 'Your profile information has been updated.' });
     }
-    res.redirect('/account');
+    res.status(301).redirect('/account');
   }).catch(function(err) {
+    console.log(err);
     if (err.code === 'ER_DUP_ENTRY') {
       req.flash('error', { msg: 'The email address you have entered is already associated with another account.' });
     }
@@ -168,11 +169,11 @@ exports.accountPut = function(req, res, next) {
 /**
  * DELETE /account
  */
-exports.accountDelete = function(req, res, next) {
+exports.deleteAccount = function(req, res, next) {
   new User({ id: req.user.id }).destroy().then(function(user) {
     req.logout();
     req.flash('info', { msg: 'Your account has been permanently deleted.' });
-    res.redirect('/');
+    res.status(301).redirect('/');
   });
 };
 
@@ -198,11 +199,11 @@ exports.unlink = function(req, res, next) {
           break;
         default:
         req.flash('error', { msg: 'Invalid OAuth Provider' });
-        return res.redirect('/account');
+        return res.status(301).redirect('/account');
       }
       user.save(user.changed, { patch: true }).then(function() {
       req.flash('success', { msg: 'Your account has been unlinked.' });
-      res.redirect('/account');
+      res.status(301).redirect('/account');
       });
     });
 };
@@ -212,7 +213,7 @@ exports.unlink = function(req, res, next) {
  */
 exports.forgotGet = function(req, res) {
   if (req.isAuthenticated()) {
-    return res.redirect('/');
+    return res.status(301).redirect('/');
   }
   res.render('account/forgot', {
     title: 'Forgot Password'
@@ -231,7 +232,7 @@ exports.forgotPost = function(req, res, next) {
 
   if (errors) {
     req.flash('error', errors);
-    return res.redirect('/forgot');
+    return res.status(301).redirect('/forgot');
   }
 
   async.waterfall([
@@ -247,7 +248,7 @@ exports.forgotPost = function(req, res, next) {
         .then(function(user) {
           if (!user) {
         req.flash('error', { msg: 'The email address ' + req.body.email + ' is not associated with any account.' });
-        return res.redirect('/forgot');
+        return res.status(301).redirect('/forgot');
           }
           user.set('passwordResetToken', token);
           user.set('passwordResetExpires', new Date(Date.now() + 3600000)); // expire in 1 hour
@@ -275,7 +276,7 @@ exports.forgotPost = function(req, res, next) {
       };
       transporter.sendMail(mailOptions, function(err) {
         req.flash('info', { msg: 'An email has been sent to ' + user.email + ' with further instructions.' });
-        res.redirect('/forgot');
+        res.status(301).redirect('/forgot');
       });
     }
   ]);
@@ -286,7 +287,7 @@ exports.forgotPost = function(req, res, next) {
  */
 exports.resetGet = function(req, res) {
   if (req.isAuthenticated()) {
-    return res.redirect('/');
+    return res.status(301).redirect('/');
   }
   new User({ passwordResetToken: req.params.token })
     .where('passwordResetExpires', '>', new Date())
@@ -294,7 +295,7 @@ exports.resetGet = function(req, res) {
     .then(function(user) {
       if (!user) {
         req.flash('error', { msg: 'Password reset token is invalid or has expired.' });
-        return res.redirect('/forgot');
+        return res.status(301).redirect('/forgot');
       }
       res.render('account/reset', {
         title: 'Password Reset'
@@ -313,7 +314,7 @@ exports.resetPost = function(req, res, next) {
 
   if (errors) {
     req.flash('error', errors);
-    return res.redirect('back');
+    return res.status(301).redirect('back');
   }
 
   async.waterfall([
@@ -324,7 +325,7 @@ exports.resetPost = function(req, res, next) {
         .then(function(user) {
           if (!user) {
           req.flash('error', { msg: 'Password reset token is invalid or has expired.' });
-          return res.redirect('back');
+          return res.status(301).redirect('back');
           }
           user.set('password', req.body.password);
           user.set('passwordResetToken', null);
@@ -353,7 +354,7 @@ exports.resetPost = function(req, res, next) {
       };
       transporter.sendMail(mailOptions, function(err) {
         req.flash('success', { msg: 'Your password has been changed successfully.' });
-        res.redirect('/account');
+        res.status(301).redirect('/account');
       });
     }
   ]);

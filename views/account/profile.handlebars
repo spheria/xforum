@@ -15,7 +15,7 @@
           {{/each}}
         </div>
       {{/if}}
-      <form method="POST" action="/account?_method=PUT" class="form-horizontal">
+      <form method="POST" action="/account/profile?_method=PUT" class="form-horizontal">
         <legend>Profile Information</legend>
         <div class="form-group">
           <label for="email" class="col-sm-3">Email</label>
@@ -68,7 +68,7 @@
   </div>
   <div class="panel">
     <div class="panel-body">
-      <form method="POST" action="/account?_method=PUT" class="form-horizontal">
+      <form method="POST" action="/account/profile?_method=PUT" class="form-horizontal">
         <legend>Change Password</legend>
         <div class="form-group">
           <label for="password" class="col-sm-3">New Password</label>
@@ -123,7 +123,7 @@
   </div>
   <div class="panel">
     <div class="panel-body">
-      <form method="POST" action="/account?_method=DELETE" class="form-horizontal">
+      <form method="POST" action="/account/profile?_method=DELETE" class="form-horizontal">
         <legend>Delete Account</legend>
         <div class="form-group">
           <p class="col-sm-offset-3 col-sm-9">You can delete your account, but keep in mind this action is irreversible.</p>

@@ -5,8 +5,8 @@ var async = require('async');
 var moment = require('moment');
 // var request = require('request');
 // var qs = require('querystring');
-var User = require('../models/User');
-var Posts = require('../models/Posts');
+// var UserDB = require('../models/User');
+var PostsDB = require('../models/Post');
 
 // function generateToken(user) {
 //   var payload = {
@@ -18,42 +18,74 @@ var Posts = require('../models/Posts');
 //   return jwt.sign(payload, process.env.TOKEN_SECRET);
 // }
 
-  exports.getAccountPosts = function(req, res, next) {
-    if (!req.user) {
-      res.status(500).send({ msg: 'Please Login.' });
-      return true;
+exports.getAccountPosts = function(req, res, next) {
+  if (!req.user) {
+    res.status(400).send({ msg: 'Please Login.' });
+    return true;
+  }
+
+  var user_id = req.user.id ;
+  new PostsDB().where({user_id:user_id}).fetchAll().then(function(collection) {
+    if (!collection) {
+      res.send({ msg: 'Your dont have any posts. Create one!' });
+    } else {
+      // res.send({ posts: collection , msg: 'You have '+ collection.length +' posts.'});
+      res.render('account/posts', { posts: collection.toJSON() , msg: 'You have '+ collection.length +' posts.'});
     }
+  }).catch(function(err) {
+    res.status(500).json({error: true, data: {mgs: err.message}});
+  });
+};
 
-    var user_id = req.user.id ;
-    console.log("user_id",user_id);
-    Posts.where({user_id:user_id}).fetchAll().then(function(postsData) {
-      // console.log(postsData.toJSON());
-      if (posts != []) {
-        res.send({ msg: 'Your dont have any posts. Create one!' });
-        // return
-      } else {
-        res.send({ posts: postsData , msg: 'You have '+ postsData.length +' posts.'});
-        // return
-      }
-    }).catch(function(err) {
-      if (err.code === 'DB_ERROR') {
-        res.status(500).send({ msg: 'The email address you have entered is already associated with another account.' });
-      }
-    });
 
-    // new Posts()
-    //   .fetch()
-    //   .then(function(user) {
-    //     if (!user) {
-    //       return res.status(401).send({ msg: 'The email address ' + req.body.email + ' is not associated with any account. ' +
-    //       'Double-check your email address and try again.'
-    //       });
-    //     }
-    //     user.comparePassword(req.body.password, function(err, isMatch) {
-    //       if (!isMatch) {
-    //         return res.status(401).send({ msg: 'Invalid email or password' });
-    //       }
-    //       res.send({ token: generateToken(user), user: user.toJSON() });
-    //     });
-    //   });
-  };
+exports.getNewPostForm = function(req, res, next) {
+  res.render('account/newPost', {
+    title: 'New Post'
+  });
+};
+exports.getPostbyId = function(req, res, next) {
+
+  PostsDB.forge({id: req.params.id})
+  .fetch({withRelated: ['category', 'tags']})
+  .then(function (post) {
+    if (!post) {
+      res.status(404).json({error: true, data: {}});
+    }
+    else {
+      res.json({error: false, data: post.toJSON()});
+    }
+  })
+  .catch(function (err) {
+    res.status(500).json({error: true, data: {msg: err.message}});
+  });
+};
+
+exports.postNewPost = function(req, res, next) {
+  req.assert('title', 'Title cannot be blank').notEmpty();
+  req.assert('body', 'Body cannot be blank').notEmpty();
+  req.assert('tags', 'Tags cannot be blank').notEmpty();
+  var errors = req.validationErrors();
+
+  if (errors) {
+    req.flash('error', errors);
+    res.status(301).redirect('/account/posts/new');
+  }
+
+  new PostsDB({
+    title: req.body.title,
+    body: req.body.body,
+    user_id: req.user.id
+  }).save()
+  .then(function(saved) {
+    console.log("saved+++++");
+    console.log(saved);
+    res.status(301).redirect('/account/posts', { msg: 'Post Created!' });
+  })
+  .catch(function(err) {
+    if (err.code) {
+      console.log("err++++++");
+      console.log(err);
+      res.status(500).send({ msg: 'SERVER_ERROR' });
+    }
+  });
+};

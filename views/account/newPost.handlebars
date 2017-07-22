@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="panel">
+    <div class="panel-body">
+      {{#if messages.success}}
+        <div role="alert" class="alert alert-success">
+          {{#each messages.success}}
+            <div>{{msg}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
+      {{#if messages.error}}
+        <div role="alert" class="alert alert-danger">
+          {{#each messages.error}}
+            <div>{{msg}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
+      <form method="POST" action="/account/posts/new" class="form-horizontal">
+        <legend>New Post</legend>
+        <div class="form-group">
+          <label for="email" class="col-sm-3">Title</label>
+          <div class="col-sm-7">
+            <input type="text" name="title" id="email" class="form-control" value="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-sm-3">Body</label>
+          <div class="col-sm-7">
+            <input type="text" name="body" id="body" class="form-control" value="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-sm-3">Tags</label>
+          <div class="col-sm-7">
+            <input type="text" name="tags" id="tags" class="form-control" value="">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-4">
+            <button type="submit" class="btn btn-success">Post</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

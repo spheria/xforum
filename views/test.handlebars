@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {{#each testposts}}
+          <p>Title {{this.title}} </p>
+          <small>Body {{this.body}}<cite title="" class="text-primary">{{this.created_at}}</cite></small>
+    {{/each}}
+  </body>
+</html>

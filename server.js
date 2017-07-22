@@ -10,6 +10,7 @@ var expressValidator = require('express-validator');
 var dotenv = require('dotenv');
 var exphbs = require('express-handlebars');
 var passport = require('passport');
+// var Pool = require('pg-pool');
 
 // Load environment variables from .env file
 dotenv.load();
@@ -46,7 +47,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(methodOverride('_method'));
-app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
+
+// app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
+var RedisStore = require('connect-redis')(session);
+var redisConfig = {
+    db: parseInt(process.env.REDIS_DB_KEY) || 123,
+    host: process.env.REDIS_HOST || 'localhost',
+    port: parseInt(process.env.REDIS_PORT) || 6379
+};
+app.use(session({
+ store: new RedisStore(redisConfig),
+ secret: process.env.SESSION_SECRET,
+ saveUninitialized: true,
+ resave: false,
+ cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+}));
+
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
