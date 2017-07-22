@@ -7,6 +7,7 @@ var passport = require('passport');
 var HomeController = require('./controllers/home');
 var userController = require('./controllers/user');
 var postsController = require('./controllers/post');
+var categoriesController = require('./controllers/categories');
 var contactController = require('./controllers/contact');
 
 router.get('/', HomeController.index);
@@ -44,6 +45,11 @@ router.get('/account/posts', userController.ensureAuthenticated, postsController
 router.get('/account/posts/new', userController.ensureAuthenticated, postsController.getNewPostForm);
 router.post('/account/posts/new', userController.ensureAuthenticated, postsController.postNewPost);
 router.get('/account/posts/:id', userController.ensureAuthenticated, postsController.getPostbyId);
+
+router.get('/categories', userController.ensureAuthenticated, categoriesController.getCategories);
+router.get('/categories/:id', userController.ensureAuthenticated, categoriesController.getCategoriesId);
+router.put('/categories/:id', userController.ensureAuthenticated, categoriesController.putCategoriesId);
+router.delete('/categories/:id', userController.ensureAuthenticated, categoriesController.deleteCategoriesbyId);
 
 
 
