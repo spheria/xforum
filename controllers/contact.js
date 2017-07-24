@@ -30,7 +30,7 @@ exports.contactPost = function(req, res) {
 
   if (errors) {
     req.flash('error', errors);
-    return res.redirect('/contact');
+    return res.status(301).redirect('/contact');
   }
 
   var mailOptions = {
@@ -42,6 +42,6 @@ exports.contactPost = function(req, res) {
 
   transporter.sendMail(mailOptions, function(err) {
     req.flash('success', { msg: 'Thank you! Your feedback has been submitted.' });
-    res.redirect('/contact');
+    res.status(301).redirect('/contact');
   });
 };

@@ -62,6 +62,12 @@ app.use(session({
  resave: false,
  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
+app.use(function (req, res, next) {
+  if (!req.session) {
+    return next(new Error('Redis Session is not Working. Please Contact Admin.')) // handle error
+  }
+  next() // otherwise continue
+})
 
 app.use(flash());
 app.use(passport.initialize());

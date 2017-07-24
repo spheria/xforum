@@ -7,6 +7,8 @@ exports.up = function(knex, Promise) {
       table.string('slug').unique();
       table.string('name');
       table.string('type');
+      table.string('tags');
+      table.string('categories');
       table.text('body');
       table.text('html');
       table.text('markdown');

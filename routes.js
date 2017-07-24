@@ -44,7 +44,8 @@ router.delete('/account/profile', userController.ensureAuthenticated, userContro
 router.get('/account/posts', userController.ensureAuthenticated, postsController.getAccountPosts);
 router.get('/account/posts/new', userController.ensureAuthenticated, postsController.getNewPostForm);
 router.post('/account/posts/new', userController.ensureAuthenticated, postsController.postNewPost);
-router.get('/account/posts/:id', userController.ensureAuthenticated, postsController.getPostbyId);
+router.get('/account/posts/read/:id', userController.ensureAuthenticated, postsController.getPostbyId);
+router.post('/account/posts/edit/:id', userController.ensureAuthenticated, postsController.putPostbyId);
 
 router.get('/categories', userController.ensureAuthenticated, categoriesController.getCategories);
 router.get('/categories/:id', userController.ensureAuthenticated, categoriesController.getCategoriesId);
