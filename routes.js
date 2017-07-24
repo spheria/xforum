@@ -47,9 +47,12 @@ router.post('/account/posts/new', userController.ensureAuthenticated, postsContr
 router.get('/account/posts/read/:id', userController.ensureAuthenticated, postsController.getPostbyId);
 router.post('/account/posts/edit/:id', userController.ensureAuthenticated, postsController.putPostbyId);
 
-router.get('/categories', userController.ensureAuthenticated, categoriesController.getCategories);
+// categories
+router.get('/categories/new', userController.ensureAuthenticated, categoriesController.createNewCategoriesForm);
+router.post('/categories/new', userController.ensureAuthenticated, categoriesController.createCategories);
+router.get('/categories/list', userController.ensureAuthenticated, categoriesController.getCategories);
 router.get('/categories/:id', userController.ensureAuthenticated, categoriesController.getCategoriesId);
-router.put('/categories/:id', userController.ensureAuthenticated, categoriesController.putCategoriesId);
+router.post('/categories/:id', userController.ensureAuthenticated, categoriesController.putCategoriesId);
 router.delete('/categories/:id', userController.ensureAuthenticated, categoriesController.deleteCategoriesbyId);
 
 

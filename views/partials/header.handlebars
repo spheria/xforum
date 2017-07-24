@@ -16,6 +16,9 @@
         {{#if user}}
         <li class="{{#ifeq title 'Posts'}}active{{/ifeq}}"><a href="/account/posts">Posts</a></li>
         {{/if}}
+        {{#if user}}
+        <li class="{{#ifeq title 'Categories'}}active{{/ifeq}}"><a href="/categories/list">Categories</a></li>
+        {{/if}}
       </ul>
     <ul class="nav navbar-nav navbar-right">
     {{#if user}}

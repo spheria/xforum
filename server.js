@@ -83,7 +83,13 @@ app.use(require("./routes"))
 if (app.get('env') === 'production') {
   app.use(function(err, req, res, next) {
     console.error(err.stack);
-    res.sendStatus(err.status || 500);
+    if (err.status == 404) {
+      res.status(404).render('error', {error: "Sorry we cant process your request." });
+    } else if (err.status == 500) {
+      res.status(500).render('error', {error: "Sorry we have a server error." });
+    } else {
+      res.status(444).render('error', {error: "Connection Closed Without Response." });
+    }
   });
 }
 
