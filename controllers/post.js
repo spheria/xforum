@@ -1,7 +1,45 @@
-var async = require('async');
 var moment = require('moment');
 var messages = require('../config/responses');
 var PostsDB = require('../models/Post');
+var template = require('../views/index.marko');
+
+
+exports.getPublicPost = function(req, res, next) {
+      let slug = req.params.slug;
+      console.log("slug");
+      console.log(slug);
+      if (!slug) {
+        return res.status(404).render("error");
+      }
+      PostsDB.forge({slug: slug})
+      .fetch()
+      // .fetch({withRelated: ['categories', 'tags']})
+      .then(function (post) {
+        if (!post) {
+          // res.status(404).json({error: true, data: {}});
+          req.flash('error', messages.E404);
+          res.status(404).render("error");
+        }
+        else {
+          res.marko(template, {post:post.toJSON()});
+          // res.render('readTest',{post: post.toJSON()});
+        }
+      })
+      .catch(function (err) {
+        req.flash('error', messages.E500);
+        res.status(500).render('error');
+      });
+};
+
+
+
+
+
+
+
+
+
+
 
 exports.getAccountPosts = function(req, res, next) {
   if (!req.user) {
@@ -41,7 +79,7 @@ exports.getPostbyId = function(req, res, next) {
     if (!post) {
       // res.status(404).json({error: true, data: {}});
       req.flash('error', messages.E404);
-      res.status(404).render(error);
+      res.status(404).render("error");
     }
     else {
       res.render('posts/read',{data: post.toJSON()});

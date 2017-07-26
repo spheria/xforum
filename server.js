@@ -1,4 +1,7 @@
+require('marko/node-require');
+
 var express = require('express');
+var markoExpress = require('marko/express');
 var path = require('path');
 var logger = require('morgan');
 var compression = require('compression');
@@ -10,7 +13,6 @@ var expressValidator = require('express-validator');
 var dotenv = require('dotenv');
 var exphbs = require('express-handlebars');
 var passport = require('passport');
-// var Pool = require('pg-pool');
 
 // Load environment variables from .env file
 dotenv.load();
@@ -20,6 +22,8 @@ require('./config/passport');
 
 var app = express();
 
+
+app.use(markoExpress()); //enable res.marko(template, data)
 var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
 
@@ -60,7 +64,7 @@ app.use(session({
  secret: process.env.SESSION_SECRET,
  saveUninitialized: true,
  resave: false,
- cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+ cookie: { maxAge: 302460601000 } // 30 days
 }));
 app.use(function (req, res, next) {
   if (!req.session) {

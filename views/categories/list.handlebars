@@ -31,8 +31,13 @@
             <div class="panel-body">
               {{#each data}}
               <blockquote>
-                <a>{{this.title}} </a>
-                <cite title="" class="text-info">{{this.name}}</cite>
+                <div class="col-md-6">
+                  <cite title="" class="text-info">{{this.name}}</cite>
+                </div>
+                <div class="col-md-6">
+                  <a data-id="{{this.id}}" data-val="{{this.name}}" id="dataModalEdit" data-toggle="modal" data-target="#categoryModal"><kbd>Edit</kbd></a>
+                  <a data-id="{{this.id}}" data-val="{{this.name}}" id="dataModalDelete"><kbd>Delete</kbd></a>
+                </div>
                 <small>
                   <cite>{{this.created_at}}</cite>
                 </small>
@@ -45,3 +50,45 @@
     </div>
   </div>
 </div>
+
+
+
+
+  <div id="categoryModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+        <form class="" action="" method="post">
+
+          <input id="categoryInput" class="input-group-lg" type="text" name="category" value="">
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  // console.log($);
+  $(document).ready(function() {
+    // $('#categoryModal').modal('show');
+    $('#dataModalEdit').on('click', function() {
+      var id = $(this).data('id');
+      var val = $(this).data('val');
+      $(".modal-body #categoryInput").val(val);
+      var path = '/categories/edit/'+id;
+      $('.modal-body form').attr('action', path );
+      // $("#txtname").focus();
+      // console.log(value);
+    })
+    // $('#categoryModal').on('shown.bs.modal', function() {
+    //   })
+  });
+  </script>

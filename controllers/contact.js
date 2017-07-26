@@ -8,7 +8,7 @@ var transporter = nodemailer.createTransport({
 });
 
 /**
- * GET /contact
+GET /contact
  */
 exports.contactGet = function(req, res) {
   res.render('contact', {
@@ -17,7 +17,7 @@ exports.contactGet = function(req, res) {
 };
 
 /**
- * POST /contact
+POST /contact
  */
 exports.contactPost = function(req, res) {
   req.assert('name', 'Name cannot be blank').notEmpty();

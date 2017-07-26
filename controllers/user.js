@@ -5,7 +5,7 @@ var passport = require('passport');
 var User = require('../models/User');
 
 /**
- * Login required middleware
+Login required middleware
  */
 exports.ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) {
@@ -16,7 +16,7 @@ exports.ensureAuthenticated = function(req, res, next) {
 };
 
 /**
- * GET /login
+GET /login
  */
 exports.loginGet = function(req, res) {
   if (req.user) {
@@ -28,7 +28,7 @@ exports.loginGet = function(req, res) {
 };
 
 /**
- * POST /login
+POST /login
  */
 exports.loginPost = function(req, res, next) {
   req.assert('email', 'Email is not valid').isEmail();
@@ -55,7 +55,7 @@ exports.loginPost = function(req, res, next) {
 };
 
 /**
- * GET /logout
+GET /logout
  */
 exports.logout = function(req, res) {
   req.logout();
@@ -63,7 +63,7 @@ exports.logout = function(req, res) {
 };
 
 /**
- * GET /signup
+GET /signup
  */
 exports.signupGet = function(req, res) {
   if (req.user) {
@@ -75,7 +75,7 @@ exports.signupGet = function(req, res) {
 };
 
 /**
- * POST /signup
+POST /signup
  */
 exports.signupPost = function(req, res, next) {
   req.assert('name', 'Name cannot be blank').notEmpty();
@@ -110,7 +110,7 @@ exports.signupPost = function(req, res, next) {
 };
 
 /**
- * GET /account
+GET /account
  */
 exports.getAccount = function(req, res) {
   res.render('account/profile', {
@@ -119,8 +119,8 @@ exports.getAccount = function(req, res) {
 };
 
 /**
- * PUT /account
- * Update profile information OR change password.
+PUT /account
+Update profile information OR change password.
  */
 exports.putAccount = function(req, res, next) {
   if ('password' in req.body) {
@@ -167,7 +167,7 @@ exports.putAccount = function(req, res, next) {
 };
 
 /**
- * DELETE /account
+DELETE /account
  */
 exports.deleteAccount = function(req, res, next) {
   new User({ id: req.user.id }).destroy().then(function(user) {
@@ -178,7 +178,7 @@ exports.deleteAccount = function(req, res, next) {
 };
 
 /**
- * GET /unlink/:provider
+GET /unlink/:provider
  */
 exports.unlink = function(req, res, next) {
   new User({ id: req.user.id })
@@ -209,7 +209,7 @@ exports.unlink = function(req, res, next) {
 };
 
 /**
- * GET /forgot
+GET /forgot
  */
 exports.forgotGet = function(req, res) {
   if (req.isAuthenticated()) {
@@ -221,7 +221,7 @@ exports.forgotGet = function(req, res) {
 };
 
 /**
- * POST /forgot
+POST /forgot
  */
 exports.forgotPost = function(req, res, next) {
   req.assert('email', 'Email is not valid').isEmail();
@@ -283,7 +283,7 @@ exports.forgotPost = function(req, res, next) {
 };
 
 /**
- * GET /reset
+GET /reset
  */
 exports.resetGet = function(req, res) {
   if (req.isAuthenticated()) {
@@ -304,7 +304,7 @@ exports.resetGet = function(req, res) {
 };
 
 /**
- * POST /reset
+POST /reset
  */
 exports.resetPost = function(req, res, next) {
   req.assert('password', 'Password must be at least 4 characters long').len(4);

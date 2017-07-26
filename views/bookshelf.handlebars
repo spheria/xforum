@@ -2405,8 +2405,8 @@ model.</p>
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">});</span><span class="pln">
 
-</span><span class="com">// select * from `books` where id = 1</span><span class="pln">
-</span><span class="com">// select * from `authors` where id = book.author_id</span><span class="pln">
+</span><span class="com">// selectfrom `books` where id = 1</span><span class="pln">
+</span><span class="com">// selectfrom `authors` where id = book.author_id</span><span class="pln">
 </span><span class="typ">Book</span><span class="pun">.</span><span class="kwd">where</span><span class="pun">({</span><span class="pln">id</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">}).</span><span class="pln">fetch</span><span class="pun">({</span><span class="pln">withRelated</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="str">'author'</span><span class="pun">]}).</span><span class="kwd">then</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">book</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">JSON</span><span class="pun">.</span><span class="pln">stringify</span><span class="pun">(</span><span class="pln">book</span><span class="pun">.</span><span class="pln">related</span><span class="pun">(</span><span class="str">'author'</span><span class="pun">)));</span><span class="pln">
 </span><span class="pun">});</span></code></pre>
@@ -3539,7 +3539,7 @@ successfully retrieved.</p>
 <p>If you need to constrain the query
 performed by fetch, you can call <a href="#Model-instance-query"><code>query</code></a> before calling
 <a href="#Model-instance-fetch"><code>fetch</code></a>.</p>
-<pre class="prettyprint source"><code><span class="com">// select * from `books` where `ISBN-13` = '9780440180296'</span><span class="pln">
+<pre class="prettyprint source"><code><span class="com">// selectfrom `books` where `ISBN-13` = '9780440180296'</span><span class="pln">
 </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Book</span><span class="pun">({</span><span class="str">'ISBN-13'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'9780440180296'</span><span class="pun">})</span><span class="pln">
   </span><span class="pun">.</span><span class="pln">fetch</span><span class="pun">()</span><span class="pln">
   </span><span class="pun">.</span><span class="kwd">then</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">model</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
@@ -4576,8 +4576,8 @@ another table which match on this model's primary key.</p>
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">});</span><span class="pln">
 
-</span><span class="com">// select * from `authors` where id = 1</span><span class="pln">
-</span><span class="com">// select * from `books` where author_id = 1</span><span class="pln">
+</span><span class="com">// selectfrom `authors` where id = 1</span><span class="pln">
+</span><span class="com">// selectfrom `books` where author_id = 1</span><span class="pln">
 </span><span class="typ">Author</span><span class="pun">.</span><span class="kwd">where</span><span class="pun">({</span><span class="pln">id</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">}).</span><span class="pln">fetch</span><span class="pun">({</span><span class="pln">withRelated</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="str">'books'</span><span class="pun">]}).</span><span class="kwd">then</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">author</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">JSON</span><span class="pun">.</span><span class="pln">stringify</span><span class="pun">(</span><span class="pln">author</span><span class="pun">.</span><span class="pln">related</span><span class="pun">(</span><span class="str">'books'</span><span class="pun">)));</span><span class="pln">
 </span><span class="pun">});</span></code></pre>
@@ -4743,7 +4743,7 @@ let </span><span class="typ">Patient</span><span class="pln"> </span><span class
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">});</span><span class="pln">
 
-</span><span class="com">// select * from `health_records` where `patient_id` = 1;</span><span class="pln">
+</span><span class="com">// selectfrom `health_records` where `patient_id` = 1;</span><span class="pln">
 </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Patient</span><span class="pun">({</span><span class="pln">id</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">}).</span><span class="pln">related</span><span class="pun">(</span><span class="str">'record'</span><span class="pun">).</span><span class="pln">fetch</span><span class="pun">().</span><span class="kwd">then</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">model</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
   </span><span class="com">// ...</span><span class="pln">
 </span><span class="pun">});</span><span class="pln">
@@ -12412,7 +12412,7 @@ may be retrieved with the <a href="#Model-instance-related"><code>related</code>
       <div class="example">
         <h5>Example</h5>
 
-    <pre class="prettyprint"><code><span class="com">// select * from authors where site_id = 1 and id = 2 limit 1;</span><span class="pln">
+    <pre class="prettyprint"><code><span class="com">// selectfrom authors where site_id = 1 and id = 2 limit 1;</span><span class="pln">
 </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Site</span><span class="pun">({</span><span class="pln">id</span><span class="pun">:</span><span class="lit">1</span><span class="pun">})</span><span class="pln">
   </span><span class="pun">.</span><span class="pln">authors</span><span class="pun">()</span><span class="pln">
   </span><span class="pun">.</span><span class="pln">query</span><span class="pun">({</span><span class="kwd">where</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">id</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2</span><span class="pun">}})</span><span class="pln">

@@ -57,6 +57,7 @@ router.delete('/categories/:id', userController.ensureAuthenticated, categoriesC
 
 
 
+router.get('/p/:slug', postsController.getPublicPost);
 
 
 
