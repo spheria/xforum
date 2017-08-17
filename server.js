@@ -1,7 +1,4 @@
-require('marko/node-require');
-
 var express = require('express');
-var markoExpress = require('marko/express');
 var path = require('path');
 var logger = require('morgan');
 var compression = require('compression');
@@ -23,7 +20,6 @@ require('./config/passport');
 var app = express();
 
 
-app.use(markoExpress()); //enable res.marko(template, data)
 var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
 

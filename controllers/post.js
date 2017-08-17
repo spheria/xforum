@@ -1,8 +1,6 @@
 var moment = require('moment');
 var messages = require('../config/responses');
 var PostsDB = require('../models/Post');
-var template = require('../views/index.marko');
-
 
 exports.getPublicPost = function(req, res, next) {
       let slug = req.params.slug;
@@ -21,7 +19,7 @@ exports.getPublicPost = function(req, res, next) {
           res.status(404).render("error");
         }
         else {
-          res.marko(template, {post:post.toJSON()});
+          res.render("public/posts/read", {post:post.toJSON()});
           // res.render('readTest',{post: post.toJSON()});
         }
       })
@@ -30,7 +28,9 @@ exports.getPublicPost = function(req, res, next) {
         res.status(500).render('error');
       });
 };
-
+exports.getPublicPostLink = function(req, res, next) {
+  res.render("public/posts/link.html");
+};
 
 
 

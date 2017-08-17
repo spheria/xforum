@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="panel">
+    <div class="panel-body">
+      {{#if messages.success}}
+        <div role="alert" class="alert alert-success">
+          {{#each messages.success}}
+            <div>{{msg}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
+      {{#if messages.error}}
+        <div role="alert" class="alert alert-danger">
+          {{#each messages.error}}
+            <div>{{msg}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+      <a class="btn btn-primary pull-right" href="/pages/new">New Category</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="bs-component">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Category</h3>
+            </div>
+            <div class="panel-body">
+              {{#each data}}
+              <blockquote>
+                <div class="col-md-6">
+                  <cite title="" class="text-info">{{this.name}}</cite>
+                </div>
+                <div class="col-md-6">
+                  <a data-id="{{this.id}}" data-val="{{this.name}}" id="dataModalEdit" data-toggle="modal" data-target="#pageModal"><kbd>Edit</kbd></a>
+                  <a data-id="{{this.id}}" data-val="{{this.name}}" id="dataModalDelete"><kbd>Delete</kbd></a>
+                </div>
+                <small>
+                  <cite>{{this.created_at}}</cite>
+                </small>
+              </blockquote>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <div id="pageModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+        <form class="" action="" method="post">
+
+          <input id="pageInput" class="input-group-lg" type="text" name="page" value="">
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  // console.log($);
+  $(document).ready(function() {
+    // $('#pageModal').modal('show');
+    $('#dataModalEdit').on('click', function() {
+      var id = $(this).data('id');
+      var val = $(this).data('val');
+      $(".modal-body #pageInput").val(val);
+      var path = '/pages/edit/'+id;
+      $('.modal-body form').attr('action', path );
+      // $("#txtname").focus();
+      // console.log(value);
+    })
+    // $('#pageModal').on('shown.bs.modal', function() {
+    //   })
+  });
+  </script>

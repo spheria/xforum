@@ -23,7 +23,6 @@
     "express-validator": "^2.20.4",
     "gulp-jshint": "^2.0.4",
     "knex": "^0.10.0",
-    "marko": "^4.4.19",
     "method-override": "^2.3.5",
     "morgan": "^1.7.0",
     "nodemailer": "^2.3.0",
