@@ -1,41 +1,88 @@
+{{> header}}
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<link href="/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" charset="utf-8"></script>
+<!-- <script src="/js/lib/tagit.min.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="/js/lib/tagit.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/lib/showdown.js" charset="utf-8"></script>
+
+<script src="/js/lib/Markdown.Converter.js" charset="utf-8"></script>
+<script src="/js/lib/Markdown.Editor.js" charset="utf-8"></script>
+<script src="/js/lib/Markdown.Sanitizer.js" charset="utf-8"></script>
+
+
+<!--editor for  body  -->
+<!-- <script src="/js/lib/simplemde.min.js" charset="utf-8"></script>
+<link rel="stylesheet" href="/css/simplemde.min.css"> -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script> -->
+
 <div class="container">
   <div class="panel">
     <div class="panel-body">
       {{#if messages.success}}
-        <div role="alert" class="alert alert-success">
-          {{#each messages.success}}
-            <div>{{msg}}</div>
-          {{/each}}
-        </div>
+      <div role="alert" class="alert alert-success">
+        {{#each messages.success}}
+        <div>{{msg}}</div>
+        {{/each}}
+      </div>
       {{/if}}
       {{#if messages.error}}
-        <div role="alert" class="alert alert-danger">
-          {{#each messages.error}}
-            <div>{{msg}}</div>
-          {{/each}}
-        </div>
+      <div role="alert" class="alert alert-danger">
+        {{#each messages.error}}
+        <div>{{msg}}</div>
+        {{/each}}
+      </div>
       {{/if}}
       <form method="POST" action="/account/posts/new" class="form-horizontal">
         <legend>New Post</legend>
         <div class="form-group">
           <label for="email" class="col-sm-3">Title</label>
           <div class="col-sm-7">
-            <input type="text" name="title" id="email" class="form-control" value="">
+            <input type="text" name="title" id="email" class="form-control" value="" required>
           </div>
         </div>
         <div class="form-group">
           <label for="email" class="col-sm-3">Body</label>
-          <div class="col-sm-7">
-            <input type="text" name="body" id="body" class="form-control" value="">
+            <textarea  name="mdbody" id="mdbody" class="form-control" value=""  style="display:none;" cols="5" rows="10" hidden="">not edited</textarea>
+            <textarea  name="htmlbody" id="htmlbody" class="form-control" value=""  style="display:none;" cols="5" rows="10" hidden="">not edited</textarea>
+
+
+
+            <div class="wmd-panel col-sm-7">
+                    <div id="wmd-button-bar" hidden=""></div>
+                    <textarea class="wmd-input" id="wmd-input" name="" required style="height=300px; wwidth=500px;" cols=50 rows="10">It's very easy to make some words **bold** and other words *italic* with Markdown. You can even [link to Google!](http://google.com)
+                    </textarea>
+                    </div>
+                    <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+
+            </div>
+
+
+
+
+
+          <!-- <div class="wmd-panel">
+                  <div id="wmd-button-bar"></div>
+                  <textarea class="wmd-input" id="wmd-input" name=""></textarea>
+                  </div>
+                  <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+          </div> -->
+        <!-- <div class="form-group">
+          <label for=""></label>
+          <div class="help-block" id="preview" >
+
           </div>
-        </div>
+        </div> -->
+
+
         <div class="form-group">
           <label for="email" class="col-sm-3">Tags</label>
           <div class="col-sm-7">
-            <input type="text" name="tags" id="tags" class="form-control" value="">
+            <input type="text" name="tags" id="tagsgenerator" class="form-control" value="" required>
           </div>
         </div>
-
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-4">
             <button type="submit" class="btn btn-success">Post</button>
@@ -45,3 +92,91 @@
     </div>
   </div>
 </div>
+
+<div id="target" style="border=1;">
+  Click here
+</div>
+<script type="text/javascript">
+(function () {
+    var converter1 = Markdown.getSanitizingConverter();
+    converter1.hooks.chain("preBlockGamut", function (text, rbg) {
+        return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+            return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+        });
+    });
+
+    var editor1 = new Markdown.Editor(converter1);
+
+    // saneConv = converter1.getSanitizingConverter()
+
+    editor1.run();
+  })();
+
+var converter = new showdown.Converter();
+var converterHtml;
+// var converter = new showdown.Converter(),
+//     text      = $('textarea#mdbody').val(),
+//     html      = converter.makeHtml(text);
+$("div#preview").html("<p>test this paragraph</p>");
+// var simplemde = new SimpleMDE({ element: document.getElementById("mdbody") });
+$( "#wmd-input" ).keyup(function() {
+  $("#htmlbody").val($('div#wmd-preview').html());
+  $("#mdbody").val($('textarea#wmd-input').val());
+  // $("div#preview").html(converter.makeHtml($('textarea#mdbody').val()));
+});
+$( "#mdbody" ).keyup(function() {
+  console.log("key up");
+      $("div#preview").html(converter.makeHtml($('textarea#mdbody').val()));
+});
+$( "#target" ).click(function() {
+  // console.log(simplemde.value());
+  var converter = new showdown.Converter(),
+      text      = $('textarea#mdbody').val(),
+      html      = converter.makeHtml(text);
+  // console.log(converter.makeHtml(text));
+});
+
+
+$("#tagsgenerator").tagit({
+
+  // Options
+  // fieldName: "tags",
+  // availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"],
+  autocomplete: {delay: 0, minLength: 2},
+  showAutocompleteOnFocus: false,
+  removeConfirmation: false,
+  caseSensitive: true,
+  allowDuplicates: false,
+  allowSpaces: false,
+  readOnly: false,
+  tagLimit: null,
+  singleField: false,
+  singleFieldDelimiter: ',',
+  singleFieldNode: null,
+  tabIndex: null,
+  placeholderText: "tags",
+
+  // Events
+  beforeTagAdded: function(event, ui) {
+    console.log(ui.tag);
+  },
+  afterTagAdded: function(event, ui) {
+    console.log(ui.tag);
+  },
+  beforeTagRemoved: function(event, ui) {
+    console.log(ui.tag);
+  },
+  onTagExists: function(event, ui) {
+    console.log(ui.tag);
+  },
+  onTagClicked: function(event, ui) {
+    console.log(ui.tag);
+  },
+  onTagLimitExceeded: function(event, ui) {
+    console.log(ui.tag);
+  }
+
+});
+</script>
+
+{{> footer}}

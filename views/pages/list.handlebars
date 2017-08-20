@@ -1,3 +1,5 @@
+{{> header}}
+
 <div class="container">
   <div class="panel">
     <div class="panel-body">
@@ -18,7 +20,7 @@
     </div>
     <div class="row">
       <div class="col-lg-6">
-      <a class="btn btn-primary pull-right" href="/pages/new">New Category</a>
+      <a class="btn btn-primary pull-right" href="/pages/new">New Page</a>
       </div>
     </div>
     <div class="row">
@@ -26,7 +28,7 @@
         <div class="bs-component">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Category</h3>
+              <h3 class="panel-title">Page</h3>
             </div>
             <div class="panel-body">
               {{#each data}}
@@ -92,3 +94,5 @@
     //   })
   });
   </script>
+
+  {{> footer}}

@@ -1,0 +1,25 @@
+exports = {
+  pages:[
+    "created",
+    "active",
+    "dormant",
+    "crystalized",
+    "deleted",
+  ],
+  posts:[
+    "created",
+    "active",
+    "dormant",
+    "crystalized",
+    "deleted",
+  ],
+  users:[
+    "active",
+    "inactive",
+    "reported",
+    "suspended",
+    "deleted",
+    "hokage",
+  ],
+  comment_status:[],
+}

@@ -1,3 +1,5 @@
+{{> header}}
+
 <div class="container">
   <div class="panel">
     <div class="panel-body">
@@ -19,20 +21,26 @@
         <legend>Post</legend>
         <div class="form-group">
           <label for="email" class="col-sm-3">Title</label>
-          <div class="col-sm-7">
-            <input type="text" name="title" id="email" class="form-control" value="{{data.title}}">
+          <div class="col-sm-12 col-md-6 col-lg-4">
+            <h3>
+              {{data.title}}
+            </h3>
           </div>
         </div>
         <div class="form-group">
           <label for="email" class="col-sm-3">Body</label>
-          <div class="col-sm-7">
-            <input type="text" name="body" id="body" class="form-control" value="{{data.body}}">
+          <div class="col-sm-12 col-md-6 col-lg-4">
+            <p>
+              {{data.body}}
+            </p>
           </div>
         </div>
         <div class="form-group">
           <label for="email" class="col-sm-3">Tags</label>
-          <div class="col-sm-7">
-            <input type="text" name="tags" id="tags" class="form-control" value="{{data.tags}}">
+          <div class="col-sm-12 col-md-6 col-lg-4">
+            <p>
+              {{data.tags}}
+            </p>
           </div>
         </div>
 
@@ -45,3 +53,5 @@
     </div>
   </div>
 </div>
+
+{{> footer}}

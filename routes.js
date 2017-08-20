@@ -6,12 +6,13 @@ var passport = require('passport');
 // Controllers
 var HomeController = require('./controllers/home');
 var userController = require('./controllers/user');
-var postsController = require('./controllers/post');
+var accountPostsController = require('./controllers/post').account;
+var publicPostsController = require('./controllers/post').public;
 var categoriesController = require('./controllers/categories');
+var pagesController = require('./controllers/pages');
 var contactController = require('./controllers/contact');
 
 router.get('/', HomeController.index);
-router.get('/theme', function(req, res){ res.render('theme')});
 router.get('/contact', contactController.contactGet);
 router.post('/contact', contactController.contactPost);
 
@@ -41,11 +42,11 @@ router.get('/account/profile', userController.ensureAuthenticated, userControlle
 router.put('/account/profile', userController.ensureAuthenticated, userController.putAccount);
 router.delete('/account/profile', userController.ensureAuthenticated, userController.deleteAccount);
 
-router.get('/account/posts', userController.ensureAuthenticated, postsController.getAccountPosts);
-router.get('/account/posts/new', userController.ensureAuthenticated, postsController.getNewPostForm);
-router.post('/account/posts/new', userController.ensureAuthenticated, postsController.postNewPost);
-router.get('/account/posts/read/:id', userController.ensureAuthenticated, postsController.getPostbyId);
-router.post('/account/posts/edit/:id', userController.ensureAuthenticated, postsController.putPostbyId);
+router.get('/account/posts', userController.ensureAuthenticated, accountPostsController.getPosts);
+router.get('/account/posts/new', userController.ensureAuthenticated, accountPostsController.getNewPostForm);
+router.post('/account/posts/new', userController.ensureAuthenticated, accountPostsController.postNewPost);
+router.get('/account/posts/read/:id', userController.ensureAuthenticated, accountPostsController.getPostbyId);
+router.post('/account/posts/edit/:id', userController.ensureAuthenticated, accountPostsController.putPostbyId);
 
 // categories
 router.get('/categories/new', userController.ensureAuthenticated, categoriesController.createNewCategoriesForm);
@@ -55,12 +56,23 @@ router.get('/categories/:id', userController.ensureAuthenticated, categoriesCont
 router.post('/categories/:id', userController.ensureAuthenticated, categoriesController.putCategoriesId);
 router.delete('/categories/:id', userController.ensureAuthenticated, categoriesController.deleteCategoriesbyId);
 
+// page
+router.get('/pages/new', userController.ensureAuthenticated, pagesController.createNewPagesForm);
+router.post('/pages/new', userController.ensureAuthenticated, pagesController.createPages);
+router.get('/pages/list', userController.ensureAuthenticated, pagesController.getPages);
+router.get('/pages/:id', userController.ensureAuthenticated, pagesController.getPagesId);
+router.post('/pages/:id', userController.ensureAuthenticated, pagesController.putPagesId);
+router.delete('/pages/:id', userController.ensureAuthenticated, pagesController.deletePagesbyId);
 
 
-router.get('/p/:slug', postsController.getPublicPost);
-router.get('/l/:slug', postsController.getPublicPostLink);
+
+router.get('/p/:slug', publicPostsController.getPost);
+router.get('/l/:slug', publicPostsController.getPostLink);
 
 
+router.get('/checkbrowser', function(req, res){ res.render('tools/checkbrowser')});
+router.get('/theme', function(req, res){ res.render('tools/theme')});
+router.get('/testshowdown', function(req, res){ res.render('tools/testshowdown')});
 
 
 

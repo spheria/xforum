@@ -1,3 +1,5 @@
+Page{{> header}}
+
 <div class="container">
   <div class="panel">
     <div class="panel-body">
@@ -16,9 +18,9 @@
         </div>
       {{/if}}
       <form method="POST" action="/pages/new" class="form-horizontal">
-        <legend>New Category</legend>
+        <legend>New Page</legend>
         <div class="form-group">
-          <label for="email" class="col-sm-3">Category</label>
+          <label for="email" class="col-sm-3">Page</label>
           <div class="col-sm-7">
             <input type="text" name="name" id="name" class="form-control" value="">
           </div>
@@ -32,3 +34,5 @@
     </div>
   </div>
 </div>
+
+{{> footer}}
