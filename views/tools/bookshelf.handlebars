@@ -2303,7 +2303,7 @@ table name the model will query against.</p>
       <div class="description">
         <p>ForeignKey in this model. By default, the foreignKey is assumed to
   be the singular form of the <code>Target</code> model's tableName, followed by <code>_id</code> /
-  <code>_{{<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>}}</code>.</p>
+  <code>__<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>_</code>.</p>
 
       </div>
 
@@ -2487,7 +2487,7 @@ model.</p>
       <div class="description">
         <p>Foreign key in this model. By default, the <code>foreignKey</code> is assumed to
   be the singular form of this model's tableName, followed by <code>_id</code> /
-  <code>_{{<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>}}</code>.</p>
+  <code>__<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>_</code>.</p>
 
       </div>
 
@@ -2504,7 +2504,7 @@ model.</p>
       <div class="description">
         <p>Foreign key in the <code>Target</code> model. By default, the <code>otherKey</code> is assumed to
   be the singular form of the <code>Target</code> model's tableName, followed by <code>_id</code> /
-  <code>_{{<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>}}</code>.</p>
+  <code>__<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>_</code>.</p>
 
       </div>
 
@@ -2623,14 +2623,14 @@ let </span><span class="typ">User</span><span class="pln"> </span><span class="p
     </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">belongsToMany</span><span class="pun">(</span><span class="typ">Account</span><span class="pun">);</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
   adminAccounts</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">belongsToMany</span><span class="pun">(</span><span class="typ">Account</span><span class="pun">).</span><span class="pln">query</span><span class="pun">({</span><span class="kwd">where</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">access</span><span class="pun">:</span><span class="pln"> </span><span class="str">'admin'</span><span class="pun">}});</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">belongsToMany</span><span class="pun">(</span><span class="typ">Account</span><span class="pun">).</span><span class="pln">query</span><span class="pun">({</span><span class="kwd">where</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">access</span><span class="pun">:</span><span class="pln"> </span><span class="str">'admin'</span><span class="pun">_);</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
   viewAccounts</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">belongsToMany</span><span class="pun">(</span><span class="typ">Account</span><span class="pun">).</span><span class="pln">query</span><span class="pun">({</span><span class="kwd">where</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">access</span><span class="pun">:</span><span class="pln"> </span><span class="str">'readonly'</span><span class="pun">}});</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">belongsToMany</span><span class="pun">(</span><span class="typ">Account</span><span class="pun">).</span><span class="pln">query</span><span class="pun">({</span><span class="kwd">where</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">access</span><span class="pun">:</span><span class="pln"> </span><span class="str">'readonly'</span><span class="pun">_);</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">});</span></code></pre><p> The default key names in the joining table are the singular versions of the
  model table names, followed by <code>_id</code> /
- _{{<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>}}. So in the above case, the
+ __<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>_. So in the above case, the
  columns in the joining table
  would be <code>user_id</code>, <code>account_id</code>, and <code>access</code>, which is used as an
  example of how dynamic relations can be formed using different contexts.
@@ -3571,7 +3571,7 @@ unless <code>{shallow: true}</code> is passed.</p>
 </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Book</span><span class="pun">({</span><span class="str">'ISBN-13'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'9780440180296'</span><span class="pun">}).</span><span class="pln">fetch</span><span class="pun">({</span><span class="pln">
   withRelated</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
     </span><span class="str">'genre'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'editions'</span><span class="pun">,</span><span class="pln">
-    </span><span class="pun">{</span><span class="pln"> chapters</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">query</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> query</span><span class="pun">.</span><span class="pln">orderBy</span><span class="pun">(</span><span class="str">'chapter_number'</span><span class="pun">);</span><span class="pln"> </span><span class="pun">}}</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln"> chapters</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">query</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> query</span><span class="pun">.</span><span class="pln">orderBy</span><span class="pun">(</span><span class="str">'chapter_number'</span><span class="pun">);</span><span class="pln"> </span><span class="pun">_</span><span class="pln">
   </span><span class="pun">]</span><span class="pln">
 </span><span class="pun">}).</span><span class="kwd">then</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">book</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">book</span><span class="pun">.</span><span class="pln">related</span><span class="pun">(</span><span class="str">'genre'</span><span class="pun">).</span><span class="pln">toJSON</span><span class="pun">());</span><span class="pln">
@@ -4479,7 +4479,7 @@ specific attribute has changed.</p>
       <div class="description">
         <p>ForeignKey in the <code>Target</code> model. By default, the foreignKey is assumed to
   be the singular form of this model's tableName, followed by <code>_id</code> /
-  <code>_{{<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>}}</code>.</p>
+  <code>__<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>_</code>.</p>
 
       </div>
 
@@ -4642,7 +4642,7 @@ another table which match on this model's primary key.</p>
       <div class="description">
         <p>ForeignKey in the <code>Target</code> model. By default, the <code>foreignKey</code> is assumed to
   be the singular form of this model's <a href="#Model-instance-tableName"><code>tableName</code></a>,
-  followed by <code>_id</code> / <code>_{{<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>}}</code>.</p>
+  followed by <code>_id</code> / <code>__<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>_</code>.</p>
 
       </div>
 
@@ -6408,7 +6408,7 @@ model, or getting back to a valid state after an error occurs.</p>
   </span><span class="pun">});</span><span class="pln">
 
 model
-  </span><span class="pun">.</span><span class="pln">query</span><span class="pun">({</span><span class="kwd">where</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">other_id</span><span class="pun">:</span><span class="pln"> </span><span class="str">'5'</span><span class="pun">},</span><span class="pln"> orWhere</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">key</span><span class="pun">:</span><span class="pln"> </span><span class="str">'value'</span><span class="pun">}})</span><span class="pln">
+  </span><span class="pun">.</span><span class="pln">query</span><span class="pun">({</span><span class="kwd">where</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">other_id</span><span class="pun">:</span><span class="pln"> </span><span class="str">'5'</span><span class="pun">},</span><span class="pln"> orWhere</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">key</span><span class="pun">:</span><span class="pln"> </span><span class="str">'value'</span><span class="pun">_)</span><span class="pln">
   </span><span class="pun">.</span><span class="pln">fetch</span><span class="pun">()</span><span class="pln">
   </span><span class="pun">.</span><span class="kwd">then</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">model</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="com">// ...</span><span class="pln">
@@ -7631,7 +7631,7 @@ customer</span><span class="pun">.</span><span class="kwd">set</span><span class
       <div class="description">
         <p>Foreign key in this model. By default, the <code>foreignKey</code> is assumed to
   be the singular form of the <code>Target</code> model's tableName, followed by <code>_id</code> /
-  <code>_{{<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>}}</code>.</p>
+  <code>__<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>_</code>.</p>
 
       </div>
 
@@ -7648,7 +7648,7 @@ customer</span><span class="pun">.</span><span class="kwd">set</span><span class
       <div class="description">
         <p>Foreign key in the <code>Interim</code> model. By default, the <code>otherKey</code> is assumed to
   be the singular form of this model's tableName, followed by <code>_id</code> /
-  <code>_{{<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>}}</code>.</p>
+  <code>__<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>_</code>.</p>
 
       </div>
 
@@ -12415,7 +12415,7 @@ may be retrieved with the <a href="#Model-instance-related"><code>related</code>
     <pre class="prettyprint"><code><span class="com">// selectfrom authors where site_id = 1 and id = 2 limit 1;</span><span class="pln">
 </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Site</span><span class="pun">({</span><span class="pln">id</span><span class="pun">:</span><span class="lit">1</span><span class="pun">})</span><span class="pln">
   </span><span class="pun">.</span><span class="pln">authors</span><span class="pun">()</span><span class="pln">
-  </span><span class="pun">.</span><span class="pln">query</span><span class="pun">({</span><span class="kwd">where</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">id</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2</span><span class="pun">}})</span><span class="pln">
+  </span><span class="pun">.</span><span class="pln">query</span><span class="pun">({</span><span class="kwd">where</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">id</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2</span><span class="pun">_)</span><span class="pln">
   </span><span class="pun">.</span><span class="pln">fetchOne</span><span class="pun">()</span><span class="pln">
   </span><span class="pun">.</span><span class="kwd">then</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">model</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="com">// ...</span><span class="pln">
@@ -15207,7 +15207,7 @@ customize the behavior, you can disable it with options: <code>{add: false}</cod
       <div class="description">
         <p>Foreign key in this collection model. By default, the <code>foreignKey</code> is assumed to
   be the singular form of the <code>Target</code> model's tableName, followed by <code>_id</code> /
-  <code>_{{<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>}}</code>.</p>
+  <code>__<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>_</code>.</p>
 
       </div>
 
@@ -15224,7 +15224,7 @@ customize the behavior, you can disable it with options: <code>{add: false}</cod
       <div class="description">
         <p>Foreign key in the <code>Interim</code> model. By default, the <code>otherKey</code> is assumed to
   be the singular form of this model's tableName, followed by <code>_id</code> /
-  <code>_{{<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>}}</code>.</p>
+  <code>__<a href="#Model-instance-idAttribute"><code>idAttribute</code></a>_</code>.</p>
 
       </div>
 
@@ -17753,7 +17753,7 @@ event handlers (for validations, etc).</p>
 </span><span class="pun">},</span><span class="pln"> </span><span class="str">'other_data'</span><span class="pun">]}).</span><span class="kwd">then</span><span class="pun">(...</span></code></pre><p><strong>0.2.1</strong> — <small><em>June 26, 2013</em></small>
  Using <code>triggerThen</code> instead of <code>trigger</code> for "created", "updated", "saved", "destroyed", and "fetched" events - if any async operations are needed <em>after</em> the model is created but before resolving the original promise.</p>
 <p><strong>0.2.0</strong> — <small><em>June 24, 2013</em></small>
- Resolve Model's <code>fetch</code> promise with <code>null</code> rather than undefined. An object of <code>query</code>. constraints (e.g. <code>{where: {...}, orWhere: {...}}</code>may be passed to the query method (#30). Fix for empty eager relation responses not providing an empty model or collection instance on the <code>model.relations</code> object.</p>
+ Resolve Model's <code>fetch</code> promise with <code>null</code> rather than undefined. An object of <code>query</code>. constraints (e.g. <code>{where: {...}, orWhere: {..._</code>may be passed to the query method (#30). Fix for empty eager relation responses not providing an empty model or collection instance on the <code>model.relations</code> object.</p>
 <p><strong>0.1.9</strong> — <small><em>June 19, 2013</em></small>
  Resolve Model's <code>fetch</code> promise with <code>undefined</code> if no model was returned. An array of "created at" and "updated at" values may be used for <code>hasTimestamps</code>. Format is called on the <code>Model#fetch</code> method. Added an <code>exec</code> plugin to provide a node callback style interface for any of the promise methods.</p>
 <p><strong>0.1.8</strong> — <small><em>June 18, 2013</em></small>

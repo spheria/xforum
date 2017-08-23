@@ -70,6 +70,7 @@ router.get('/p/:slug', publicPostsController.getPost);
 router.get('/l/:slug', publicPostsController.getPostLink);
 
 
+router.get('/bookshelf', function(req, res){ res.render('tools/bookshelf')});
 router.get('/checkbrowser', function(req, res){ res.render('tools/checkbrowser')});
 router.get('/theme', function(req, res){ res.render('tools/theme')});
 router.get('/testshowdown', function(req, res){ res.render('tools/testshowdown')});

@@ -3,7 +3,7 @@ var CategoriesDB = require('../models/Categories');
 var messages = require('../config/responses');
 
 exports.createNewCategoriesForm = (req, res, next) => {
-  res.render('categories/new');
+  res.render('categories/new', {title:"Categories"});
 };
 
 exports.createCategories = (req, res, next) => {
@@ -16,7 +16,7 @@ exports.createCategories = (req, res, next) => {
     .then(function (data) {
       console.log(data);
       req.flash('success', { msg: 'New category have been saved.' });
-      res.status(200).redirect('/categories/list');
+      res.status(200).redirect('/categories/list', {title:"Categories"});
       // res.json({error: false, data: {id: user.get('id')}});
     })
     .catch(function (err) {
@@ -31,10 +31,10 @@ exports.getCategories = (req, res, next) => {
   .then(function (collection) {
     if (!collection || collection == [] ) {
       req.flash('error', {msg:"We dont have any category yet"});
-      res.render('categories/list', {data:[]});
+      res.render('categories/list', {data:[], title:"Categories"});
     }
     else {
-      res.render('categories/list', {data:collection.toJSON()});
+      res.render('categories/list', {data:collection.toJSON(), title:"Categories"});
       //  res.json({error: false, data: category.toJSON()});
     }
   })

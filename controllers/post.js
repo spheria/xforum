@@ -20,7 +20,7 @@ exports.public = {
         res.status(404).render("error");
       }
       else {
-        res.render("public/posts/read", {post:post.toJSON()});
+        res.render("public/posts/read", {post:post.toJSON(), title:"Posts"});
         // res.render('readTest',{post: post.toJSON()});
       }
     })
@@ -30,7 +30,7 @@ exports.public = {
     });
   },
   getPostLink : function(req, res, next) {
-    res.render("public/posts/link.html");
+    res.render("public/posts/link.html" , {title:"Posts"});
   }
 }
 
@@ -52,29 +52,61 @@ exports.account = {
     }
 
     var user_id = req.user.id ;
-    new PostsDB().where({user_id:user_id}).orderBy('id', 'DESC')
-    .fetchAll({limit: 15})
-    .then(function(collection) {
-      if (!collection) {
-        req.flash('error', {msg:"You dont have any post."});
-      } else {
-        // var showdown  = require('showdown'),
-        //       converter = new showdown.Converter(),
-        //       text      = '#hello, markdown!',
-        //       html      = converter.makeHtml(text);
-        res.render('posts/list', { posts: collection.toJSON() , msg: 'You have '+ collection.length +' posts.'});
-      }
-    }).catch(function(err) {
-      // res.status(500).json({error: true, data: {mgs: err.message}});
-      req.flash('error', messages.E500);
-      res.status(500).render('error');
-    });
+    // from knex
+    var config = require('../knexfile');
+    var knex = require('knex')(config);
+    var bookshelf = require('bookshelf')(knex);
+
+      var DBPosts = bookshelf.Model.extend({
+        tableName: 'posts',
+      });
+
+
+
+    DBPosts.query(function (qb) {
+      //  qb.innerJoin('manufacturers', 'cars.manufacturer_id', 'manufacturers.id');
+       qb.groupBy('id');
+       qb.where('user_id', '=', user_id);
+    })
+    .orderBy('-id') // Same as .orderBy('cars.productionYear', 'DESC')
+    .fetchPage({
+       pageSize: 15, // Defaults to 10 if not specified
+       page: 3, // Defaults to 1 if not specified
+
+       // OR
+       // limit: 15,
+       // offset: 30,
+
+       withRelated: ['engine'] // Passed to Model#fetchAll
+    })
+    .then(function (results) {
+       console.log(results); // Paginated results object with metadata example below
+    })
+
+
+    // new PostsDB().where({user_id:user_id}).orderBy('id', 'DESC')
+    // .fetchAll({limit: 15})
+    // .then(function(collection) {
+    //   if (!collection) {
+    //     req.flash('error', {msg:"You dont have any post."});
+    //   } else {
+    //     // var showdown  = require('showdown'),
+    //     //       converter = new showdown.Converter(),
+    //     //       text      = '#hello, markdown!',
+    //     //       html      = converter.makeHtml(text);
+    //     res.render('posts/list', { posts: collection.toJSON() , msg: 'You have '+ collection.length +' posts.', title:"Posts"});
+    //   }
+    // }).catch(function(err) {
+    //   // res.status(500).json({error: true, data: {mgs: err.message}});
+    //   req.flash('error', messages.E500);
+    //   res.status(500).render('error');
+    // });
   },
 
 
   getNewPostForm : function(req, res, next) {
     res.render('posts/new', {
-      title: 'New Post'
+      title: 'Posts'
     });
   },
 
@@ -90,7 +122,7 @@ exports.account = {
         res.status(404).render("error");
       }
       else {
-        res.render('posts/read',{data: post.toJSON()});
+        res.render('posts/read',{data: post.toJSON(), title:"Posts"});
       }
     })
     .catch(function (err) {
@@ -158,15 +190,15 @@ exports.account = {
       user_id: req.user.id
     }).save()
     .then(function(saved) {
-      console.log("saved+++++");
-      console.log(saved);
+      console.log(saved.attributes.id);
       req.flash('success', { msg: 'New post have been saved.' });
       res.status(301).redirect('/account/posts');
     })
     .catch(function(err) {
       if (err.code) {
-        req.flash('error', messages.E500);
-        res.status(500).render('error');
+        console.log(err.detail);
+        req.flash('error', {msg:"error"});
+        res.status(500).redirect('/account/posts/new');
       }
     });
   }

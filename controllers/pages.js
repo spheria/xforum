@@ -3,7 +3,7 @@ var PagesDB = require('../models/Pages');
 var messages = require('../config/responses');
 
 exports.createNewPagesForm = (req, res, next) => {
-  res.render('pages/new');
+  res.render('pages/new', {title:"Pages"});
 };
 
 exports.createPages = (req, res, next) => {
@@ -36,10 +36,10 @@ exports.getPages = (req, res, next) => {
   .then(function (collection) {
     if (!collection || collection == [] ) {
       req.flash('error', {msg:"We dont have any page yet"});
-      res.render('pages/list', {data:err});
+      res.render('pages/list', {data:err, title:"Pages"});
     }
     else {
-      res.render('pages/list', {data:collection.toJSON()});
+      res.render('pages/list', {data:collection.toJSON(), title:"Pages"});
       //  res.json({error: false, data: page.toJSON()});
     }
   })

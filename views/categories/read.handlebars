@@ -1,15 +1,17 @@
+{{> header}}
+
 <div class="container">
   <div class="panel">
     <div class="panel-body">
       {{#if messages.success}}
-        <div role="alert" class="alert alert-success">
+        <div role="alert" class="alert alert-dismissible alert-success">
           {{#each messages.success}}
             <div>{{msg}}</div>
           {{/each}}
         </div>
       {{/if}}
       {{#if messages.error}}
-        <div role="alert" class="alert alert-danger">
+        <div role="alert" class="alert alert-dismissible alert-danger">
           {{#each messages.error}}
             <div>{{msg}}</div>
           {{/each}}
@@ -45,3 +47,5 @@
     </div>
   </div>
 </div>
+
+{{> footer}}

@@ -17,7 +17,7 @@ exports.up = function(knex, Promise) {
       table.string('vk');
       table.integer('posts').unsigned().defaultTo(0);
       table.integer('rank').unsigned().defaultTo(0);
-      table.integer('status').unsigned().defaultTo(0);
+      table.integer('status').unsigned().defaultTo(1);
       table.timestamps();
     })
   ]);

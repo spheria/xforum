@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
       table.integer('user_id').references('users.id');
       table.integer('category_id').references('categories.id');
       table.integer('category_name');
+      table.integer('views').unsigned().defaultTo(0);
       table.timestamps();
     })
   ]);

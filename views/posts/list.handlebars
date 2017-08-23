@@ -4,14 +4,14 @@
   <div class="panel">
     <div class="panel-body">
       {{#if messages.success}}
-      <div role="alert" class="alert alert-success">
+      <div role="alert" class="alert alert-dismissible alert-success">
         {{#each messages.success}}
         <div>{{msg}}</div>
         {{/each}}
       </div>
       {{/if}}
       {{#if messages.error}}
-      <div role="alert" class="alert alert-danger">
+      <div role="alert" class="alert alert-dismissible alert-danger">
         {{#each messages.error}}
         <div>{{msg}}</div>
         {{/each}}
@@ -19,12 +19,15 @@
       {{/if}}
     </div>
   </div>
+  <!-- <div class="row"> -->
+    <!-- <div class="col-lg-12"> -->
+      <!-- <div class="page-header"> -->
+        <!-- <h1 id="navs">Posts</h1> -->
+      <!-- </div> -->
+    <!-- </div> -->
+  <!-- </div> -->
   <div class="row">
-    <div class="jumbotron">
-      <h3>Posts</h3>
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="bs-component">
+    <div class="col-lg-8 cgol-md-8 col-sm-12">
         {{#each posts}}
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -35,20 +38,20 @@
           <div class="panel-body">
             <cite title="" class="text-info">{{this.body}}</cite>
             <p class="lead">{{{this.html}}}</p>
-            <blockquote class=" blockquote-reverse">
-              <small>
-                <cite class=" blockquote-reverse">{{this.created_at}}</cite>
-              </small>
-            </blockquote>
+            <div class="blockquote-reverse">
+                <small>{{this.created_at}}</small>
+            </div>
           </div>
         </div>
         {{/each}}
-      </div>
     </div>
   </div>
 </div>
 
 <div class="row">
+  <div class="col-lg-6">
+    <!-- empty -->
+  </div>
   <div class="col-lg-6">
     <a class="btn btn-primary pull-right" href="/account/posts/new">New Post</a>
     <a class="btn btn-primary pull-right" href="/categories/new">New Category</a>
