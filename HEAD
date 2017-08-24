@@ -1,0 +1,8 @@
+Unstaged changes after reset:
+M	package-lock.json
+M	package.json
+D	public/css/vendor/bootstrap.min.css
+M	public/js/lib/bootstrap.min.js
+M	views/layouts/main.handlebars
+M	views/partials/header.handlebars
+M	views/posts/new.handlebars
