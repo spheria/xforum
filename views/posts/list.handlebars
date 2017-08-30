@@ -1,6 +1,20 @@
 {{> header}}
+{{> navigation}}
 
+<script src="/js/jquery.pagination.js" charset="utf-8"></script>
 <div class="container">
+  <br>
+  <div class="row">
+    <div class="col-lg-6">
+      <!-- empty -->
+    </div>
+    <div class="col-lg-6">
+      <a class="btn btn-primary pull-right" href="/account/posts/new">New Post</a>
+      <a class="btn btn-primary pull-right" href="/categories/new">New Category</a>
+      <a class="btn btn-primary pull-right" href="/pages/new">New Page</a>
+    </div>
+  </div>
+
   <div class="panel">
     <div class="panel-body">
       {{#if messages.success}}
@@ -19,44 +33,62 @@
       {{/if}}
     </div>
   </div>
-  <!-- <div class="row"> -->
-    <!-- <div class="col-lg-12"> -->
-      <!-- <div class="page-header"> -->
-        <!-- <h1 id="navs">Posts</h1> -->
-      <!-- </div> -->
-    <!-- </div> -->
-  <!-- </div> -->
+
+
+
   <div class="row">
-    <div class="col-lg-8 cgol-md-8 col-sm-12">
-        {{#each posts}}
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <a><h3>{{this.title}}</h3> </a>
-            </h3>
+    <div class="col-lg-8">
+      <div class="bs-component">
+        <h3>Posts</h3>
+        <div class="list-group">
+      {{#each posts}}
+          <div class="boxed-list">
+              <p class="text-primary">
+              </p>
+              <a href="/account/posts/read/{{this.id}}"><h4 class="list-group-item-heading text-primary">
+                {{this.title}}
+              </h4></a>
+              <div class="block-with-text">
+                {{{this.html}}}
+              </div>
+              <small>{{this.created_at}}</small>
           </div>
-          <div class="panel-body">
-            <cite title="" class="text-info">{{this.body}}</cite>
-            <p class="lead">{{{this.html}}}</p>
-            <div class="blockquote-reverse">
-                <small>{{this.created_at}}</small>
-            </div>
-          </div>
+      {{/each}}
+
         </div>
-        {{/each}}
+        <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="bs-component">
+        <h3>Ads</h3>
+      </div>
     </div>
   </div>
-</div>
+  <div class="row">
+    <div class="col-lg-6" id="paginate">
+      <ul class="pagination" id="paginate">
+       <li class="disabled"><a href="#">«</a></li>
+       <li class="active"><a href="#">1</a></li>
+       <li><a href="#">2</a></li>
+       <li><a href="#">3</a></li>
+       <li><a href="#">4</a></li>
+       <li><a href="#">5</a></li>
+       <li><a href="#">»</a></li>
+     </ul>
+    </div>
+      <script type="text/javascript">
+      $(function() {
+        $('.pagination').pagination({
+            items: {{pagination.pageCount}},
+            itemsOnPage: {{pagination.pageSize}},
+            // cssStyle: 'light-theme'
+        });
+      });
+      </script>
 
-<div class="row">
-  <div class="col-lg-6">
-    <!-- empty -->
   </div>
-  <div class="col-lg-6">
-    <a class="btn btn-primary pull-right" href="/account/posts/new">New Post</a>
-    <a class="btn btn-primary pull-right" href="/categories/new">New Category</a>
-    <a class="btn btn-primary pull-right" href="/pages/new">New Page</a>
-  </div>
-</div>
 
+</div>
 {{> footer}}

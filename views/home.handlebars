@@ -1,5 +1,26 @@
 {{> header}}
-<div class="container-fluid">
+{{> navigation}}
+
+
+
+<div class="container">
+<div class="col-lg-12">
+
+<!-- breadcrumb -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="bs-component">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Library</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- breadcrumb -->
+
+
+
   {{#if messages.success}}
     <div role="alert" class="alert alert-dismissible alert-success">
       {{#each messages.success}}
@@ -21,40 +42,188 @@
       {{/each}}
     </div>
   {{/if}}
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="panel">
-        <div class="panel-body">
-          <h3>Heading</h3>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui.</p>
-          <a href="#" role="button" class="btn btn-default">View details</a>
+
+
+
+
+
+
+
+
+  <div class="bs-docs-section">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="bs-component">
+          <h3>Newsfeeds</h3>
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            </a>
+          </div>
+          <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="panel">
-        <div class="panel-body">
-          <h3>Heading</h3>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui.</p>
-          <a href="#" role="button" class="btn btn-default">View details</a>
+
+      <div class="col-lg-4">
+        <div class="bs-component">
+          <h3>Links</h3>
+          <div class="list-group">
+            <a href="#" class="list-group-item  list-group-item-action">
+              Cras justo odio
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in awd
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis indfhdafhdf
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis inafdjfh
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis insd
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis ins
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis indfhadfhdf
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis inadfhadfhdfh
+            </a>
+            <a href="#" class="list-group-item list-group-item-action disabled">Morbi leo risusdd
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="panel">
-        <div class="panel-body">
-          <h3>Heading</h3>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            Donec sed odio dui.</p>
-          <a href="#" role="button" class="btn btn-default">View details</a>
+
+      <div class="col-lg-4">
+        <div class="bs-component">
+          <h3>Blogs</h3>
+          <div class="list-group">
+            <a href="#" class="list-group-item  list-group-item-action">
+              Cras justo odio
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in sdfsdfsdfsd
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in sdfs dfs
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in sdfsdf
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in sdfsdf sdfs dfsdf sdfs
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in s
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in sdfsdfsdf sdf sdfs df
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Despacito ac facilisis in sdfsdfsdfsdfsa sdasdas dasda sdadas dasdasd
+            </a>
+            <a href="#" class="list-group-item list-group-item-action disabled">Morbi leo risus
+            </a>
+          </div>
         </div>
       </div>
+
+
     </div>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
+<!--  col md 12 END -->
+</div>
+<!-- container END -->
 {{> footer}}

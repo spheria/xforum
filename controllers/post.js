@@ -50,57 +50,67 @@ exports.account = {
       res.status(400).render('error');
       return true;
     }
+    console.log(req.query.page);
 
+    var page = req.query.page || 1;
+    var limit = req.query.limit || 25;
+    var orderBy = req.query.orderby;
+    var order = req.query.order || 'asc';
     var user_id = req.user.id ;
-    // from knex
-    var config = require('../knexfile');
-    var knex = require('knex')(config);
-    var bookshelf = require('bookshelf')(knex);
 
-      var DBPosts = bookshelf.Model.extend({
-        tableName: 'posts',
-      });
-
-
-
-    DBPosts.query(function (qb) {
-      //  qb.innerJoin('manufacturers', 'cars.manufacturer_id', 'manufacturers.id');
-       qb.groupBy('id');
-       qb.where('user_id', '=', user_id);
-    })
-    .orderBy('-id') // Same as .orderBy('cars.productionYear', 'DESC')
-    .fetchPage({
-       pageSize: 15, // Defaults to 10 if not specified
-       page: 3, // Defaults to 1 if not specified
+    PostsDB
+     .query(function (qb) {
+       //  qb.innerJoin('manufacturers', 'cars.manufacturer_id', 'manufacturers.id');
+       //  qb.groupBy('id');
+        qb.where('user_id', '=', user_id);
+     })
+     .orderBy('id', 'desc') // Same as .orderBy('cars.productionYear', 'DESC')
+     .fetchPage({
+       pageSize: limit || 15, // Defaults to 10 if not specified
+       page: page || 1, // Defaults to 1 if not specified
 
        // OR
        // limit: 15,
        // offset: 30,
 
-       withRelated: ['engine'] // Passed to Model#fetchAll
-    })
-    .then(function (results) {
-       console.log(results); // Paginated results object with metadata example below
-    })
+       // withRelated: ['engine'] // Passed to Model#fetchAll
+     })
+     .then(function(collection) {
+       if (!collection) {
+         req.flash('error', {msg:"You dont have any post."});
+       } else {
+         // var showdown  = require('showdown'),
+         //       converter = new showdown.Converter(),
+         //       text      = '#hello, markdown!',
+         //       html      = converter.makeHtml(text);
+         if (page == 1) {
+           req.flash('success',  {msg: 'You have '+ collection.pagination.rowCount +' posts.'});
+         }
+         res.render('posts/list', { posts: collection.toJSON() , pagination: collection.pagination, title:"Posts"});
+       }
+     }).catch(function(err) {
+       // res.status(500).json({error: true, data: {mgs: err.message}});
+       req.flash('error', messages.E500);
+       res.status(500).render('error');
+     });
 
+     // Pagination results:
+     // {
+     //    models: [<Car>], // Regular bookshelf Collection
+     //    // other standard Collection attributes
+     //    ...
+     //    pagination: {
+     //        rowCount: 53, // Total number of rows found for the query before pagination
+     //        pageCount: 4, // Total number of pages of results
+     //        page: 3, // The requested page number
+     //        pageSize: 15, // The requested number of rows per page
+     //
+     //  // OR, if limit/offset pagination is used instead of page/pageSize:
+     //        // offset: 30, // The requested offset
+     //        // limit: 15 // The requested limit
+     //    }
+     // }
 
-    // new PostsDB().where({user_id:user_id}).orderBy('id', 'DESC')
-    // .fetchAll({limit: 15})
-    // .then(function(collection) {
-    //   if (!collection) {
-    //     req.flash('error', {msg:"You dont have any post."});
-    //   } else {
-    //     // var showdown  = require('showdown'),
-    //     //       converter = new showdown.Converter(),
-    //     //       text      = '#hello, markdown!',
-    //     //       html      = converter.makeHtml(text);
-    //     res.render('posts/list', { posts: collection.toJSON() , msg: 'You have '+ collection.length +' posts.', title:"Posts"});
-    //   }
-    // }).catch(function(err) {
-    //   // res.status(500).json({error: true, data: {mgs: err.message}});
-    //   req.flash('error', messages.E500);
-    //   res.status(500).render('error');
-    // });
   },
 
 

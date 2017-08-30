@@ -1,56 +1,19 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" data-toggle="collapse" data-target="#navbar" class="navbar-toggle collapsed">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a href="/" class="navbar-brand">Project name</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="{{#ifeq title 'Home'}}active{{/ifeq}}"><a href="/">Home</a></li>
-        <li class="{{#ifeq title 'Contact'}}active{{/ifeq}}"><a href="/contact">Contact</a></li>
-        {{#if user}}
-        <li class="{{#ifeq title 'Posts'}}active{{/ifeq}}"><a href="/account/posts">Posts</a></li>
-        <li class="{{#ifeq title 'Categories'}}active{{/ifeq}}"><a href="/categories/list">Categories</a></li>
-        <li class="{{#ifeq title 'Pages'}}active{{/ifeq}}"><a href="/pages/list">Pages</a></li>
-        {{/if}}
-      </ul>
-      <!-- <ul class="nav navbar-nav navbar-right">
-      </ul> -->
-    <ul class="nav navbar-nav navbar-right">
-      <li class="divider"></li>
-      <li class="{{#ifeq title 'New Post'}}active{{/ifeq}}"><a class="text-info" href="/account/posts/new">New Post</a></li>
-    {{#if user}}
-      <li class="dropdown">
-        <a href="#" data-toggle="dropdown" class="navbar-avatar dropdown-toggle">
-          {{#if user.picture}}
-            <img src="{{user.picture}}">
-          {{else}}
-            <img src="{{user.gravatar}}" width="40" height="40">
-          {{/if}}
-          {{#if user.name}}
-            {{user.name}}
-          {{else}}
-            {{user.email}}
-          {{/if}}
-          <i class="caret"></i>
-        </a>
-        <ul class="dropdown-menu">
-          <li><a href="/account/profile">My Account</a></li>
-          <li class="divider"></li>
-          <li><a href="/logout">Logout</a></li>
-        </ul>
-      </li>
-    {{else}}
-      <li class="{{#ifeq title 'Log in'}}active{{/ifeq}}"><a href="/login">Log in</a></li>
-      <li class="{{#ifeq title 'Sign up'}}active{{/ifeq}}"><a href="/signup">Sign up</a></li>
-    {{/if}}
-    </ul>
-    </div>
-  </div>
-</nav>
-<br>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My App</title>
+<title>{{title}}</title>
+
+<link rel="stylesheet" href="/css/pulse.css">
+<link rel="stylesheet" href="/css/tether-theme-arrows.css">
+<link rel="stylesheet" href="/css/custom.css">
+<script src="/js/jquery.min.js" charset="utf-8"></script>
+<script src="/js/popper/dist/umd/popper.js" charset="utf-8"></script>
+<script src="/js/tether.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/custom.js"></script>
+</head>
+<body>

@@ -34,6 +34,14 @@ var hbs = exphbs.create({
     },
     toJSON : function(object) {
       return JSON.stringify(object);
+    },
+    add: function(value, num)
+    {
+        return parseInt(value) + num;
+    },
+    sub: function(value, options)
+    {
+        return parseInt(value) - num;
     }
   }
 });
