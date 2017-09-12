@@ -21,6 +21,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.4",
     "express-validator": "^2.20.4",
+    "faker": "^4.1.0",
     "gulp-jshint": "^2.0.4",
     "knex": "^0.10.0",
     "method-override": "^2.3.5",
