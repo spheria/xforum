@@ -1,0 +1,9 @@
+MAILGUN_USERNAME='postmaster@sandbox67c118365e564798a8864434e4b2a3cb.mailgun.org'
+MAILGUN_PASSWORD='ed49d942fd9e6c11208ee3aacb29df9d'
+
+SESSION_SECRET='fa85813da25974e6fd79b86fa5e088083f37cd4aca95aa085a0d58feeb613a8e'
+
+DB_HOST='localhost'
+DB_USER='postgres'
+DB_PASSWORD='root'
+DB_NAME='xforum'

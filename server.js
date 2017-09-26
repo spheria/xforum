@@ -56,26 +56,31 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(methodOverride('_method'));
 
-// app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
-var RedisStore = require('connect-redis')(session);
-var redisConfig = {
+if (process.env.SESSION_TYPE == 'redis') {
+  var RedisStore = require('connect-redis')(session);
+  var redisConfig = {
     db: parseInt(process.env.REDIS_DB_KEY) || 123,
     host: process.env.REDIS_HOST || 'localhost',
     port: parseInt(process.env.REDIS_PORT) || 6379
-};
-app.use(session({
- store: new RedisStore(redisConfig),
- secret: process.env.SESSION_SECRET,
- saveUninitialized: true,
- resave: false,
- cookie: { maxAge: 302460601000 } // 30 days
-}));
-app.use(function (req, res, next) {
-  if (!req.session) {
-    return next(new Error('Redis Session is not Working. Please Contact Admin.')) // handle error
-  }
-  next() // otherwise continue
-})
+  };
+  app.use(session({
+    store: new RedisStore(redisConfig),
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: true,
+    resave: false,
+    cookie: { maxAge: 302460601000 } // 30 days
+  }));
+  app.use(function (req, res, next) {
+    if (!req.session) {
+      return next(new Error('Redis Session is not Working. Please Contact Admin.')) // handle error
+    }
+    next() // otherwise continue
+  })
+} else {
+  console.log("Session is running at local storage. This is not advisable. Please set redis session.");
+  app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
+}
+
 
 app.use(flash());
 app.use(passport.initialize());
